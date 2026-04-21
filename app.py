@@ -44,11 +44,45 @@ st.markdown("This model uses **CNN** for better accuracy. Draw clearly in the ce
 
 st.sidebar.title("Live Preview")
 
+        drawing_mode="freedraw",
+        key="canvas",
+    )
 
+    # --- 3. PREDICTION LOGIC ---
+    if st.button("Analyze Drawing"):
+        if canvas_result.image_data is not None:
+            # Step A: Convert to Grayscale
+            raw_img = Image.fromarray(canvas_result.image_data.astype('uint8')).convert('L')
+            
+            # Step B: Auto-Centering (Bounding Box)
+            bbox = raw_img.getbbox()
+            if bbox:
+                # Crop to the digit and add padding to mimic MNIST style
+                cropped_img = raw_img.crop(bbox)
+                img = ImageOps.expand(cropped_img, border=40, fill=0)
+            else:
+                img = raw_img
 
-    @st.cache_resource
-def load_my_model():
-    # Placeholder for the actual model loading
-    return None
+            # Step C: Resize to 28x28
+            img = img.resize((28, 28))
+            
+            # Step D: Show Preview in Sidebar
+            st.sidebar.image(img, caption="Processed Image", width=150)
+            
+            # Step E: Normalize and Reshape for CNN (Batch, H, W, Channel)
+            img_array = np.array(img) / 255.0
+            img_array = img_array.reshape(1, 28, 28, 1)
 
-model = load_my_model()
+            # Step F: Predict
+            prediction = model.predict(img_array)
+            predicted_digit = np.argmax(prediction)
+            confidence = np.max(prediction)
+
+            # Show Result
+            st.success(f"## Prediction: {predicted_digit}")
+            st.write(f"**Confidence Score:** {confidence*100:.2f}%")
+            st.bar_chart(prediction[0])
+        else:
+            st.warning("Please draw a digit first!")
+else:
+    st.error("Model weights not found! Please ensure 'cnn_digit_weights.weights.h5' is in your folder.")

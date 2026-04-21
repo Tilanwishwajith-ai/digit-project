@@ -1,5 +1,5 @@
 import streamlit as st
-st.title("Digit Recognizer AI")
+from streamlit_drawable_canvas import st_canvas
 import tensorflow as tf
 import numpy as np
 from PIL import Image

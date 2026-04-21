@@ -44,6 +44,7 @@ st.markdown("This model uses **CNN** for better accuracy. Draw clearly in the ce
 
 st.sidebar.title("Live Preview")
 
+if model is not None:
     # Drawing Canvas
     canvas_result = st_canvas(
         fill_color="rgba(255, 165, 0, 0.3)",

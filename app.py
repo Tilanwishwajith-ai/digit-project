@@ -15,3 +15,9 @@ canvas_result = st_canvas(
     height=280, width=280, 
     drawing_mode="freedraw"
 )
+st.markdown("""
+    <style>
+    .main { background-color: #0e1117; }
+    .stButton>button { color: white; border-radius: 10px; background-color: #ff4b4b; }
+    </style>
+    """, unsafe_allow_html=True)

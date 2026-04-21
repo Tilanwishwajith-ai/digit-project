@@ -29,3 +29,6 @@ st.markdown("""
     img = Image.fromarray(img_data.astype('uint8')).convert('L')
     img = img.resize((28, 28))
     return np.array(img).reshape(1, 28, 28, 1) / 255.0
+
+    if st.button("✨ Analyze Drawing"):
+    st.info("The AI model is processing your drawing...")

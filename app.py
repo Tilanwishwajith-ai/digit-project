@@ -32,3 +32,11 @@ st.markdown("""
 
     if st.button("✨ Analyze Drawing"):
     st.info("The AI model is processing your drawing...")
+
+
+    @st.cache_resource
+def load_my_model():
+    # Placeholder for the actual model loading
+    return None
+
+model = load_my_model()

@@ -44,6 +44,14 @@ st.markdown("This model uses **CNN** for better accuracy. Draw clearly in the ce
 
 st.sidebar.title("Live Preview")
 
+    # Drawing Canvas
+    canvas_result = st_canvas(
+        fill_color="rgba(255, 165, 0, 0.3)",
+        stroke_width=18,
+        stroke_color="#FFFFFF",
+        background_color="#000000",
+        height=280,
+        width=280,
         drawing_mode="freedraw",
         key="canvas",
     )

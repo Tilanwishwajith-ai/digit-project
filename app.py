@@ -21,3 +21,11 @@ st.markdown("""
     .stButton>button { color: white; border-radius: 10px; background-color: #ff4b4b; }
     </style>
     """, unsafe_allow_html=True)
+
+
+
+
+    def preprocess_image(img_data):
+    img = Image.fromarray(img_data.astype('uint8')).convert('L')
+    img = img.resize((28, 28))
+    return np.array(img).reshape(1, 28, 28, 1) / 255.0
